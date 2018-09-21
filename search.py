@@ -153,9 +153,6 @@ def uniformCostSearch(problem):
                 if succ_state not in visited_array:
                     new_node = (succ_state, path + [succ_path], cost + succ_cost)
                     pQueue.push(new_node, cost + succ_cost)
-    return
-
-
               # here we add Cost to the Node structure is (Data, path, cost)
     return  # to avoid compilation errors
 
@@ -171,6 +168,26 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
+
+    visited_array = []
+    pQueue = util.PriorityQueue()
+    startNode = (problem.getStartState(), [], 0)  # Node structure contains node data and path to it
+    pQueue.push(startNode, 0)
+    while not pQueue.isEmpty():
+        state, path, cost = pQueue.pop()
+
+        if (state not in visited_array):
+            visited_array.append(state)
+            if (problem.isGoalState(state)):
+                return path
+
+            for succ_state, succ_path, succ_cost in problem.getSuccessors(state):
+                if succ_state not in visited_array:
+                    new_node = (succ_state, path + [succ_path], cost + succ_cost)
+                    heuristic_value = heuristic(succ_state, problem)
+                    pQueue.push(new_node, cost + succ_cost + heuristic_value)
+    return  # to avoid compilation errors
+
     util.raiseNotDefined()
 
 
