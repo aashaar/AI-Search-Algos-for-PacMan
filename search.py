@@ -185,7 +185,6 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 if succ_state not in visited_array:
                     new_node = (succ_state, path + [succ_path], cost + succ_cost)
                     heuristic_value = heuristic(succ_state, problem)
-                    
                     pQueue.push(new_node, cost + succ_cost + heuristic_value)
     return  # to avoid compilation errors
 
