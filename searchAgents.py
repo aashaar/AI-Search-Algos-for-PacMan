@@ -294,6 +294,15 @@ class CornersProblem(search.SearchProblem):
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
+        currentCorners = []
+        currentLocation = self.startingPosition
+#       print"Current Location =", currentLocation
+        if currentLocation in self.corners:
+            currentCorners.append(currentLocation)
+        currentCorners = sorted(currentCorners)
+        return (self.startingPosition,currentCorners)
+
+
         "*** YOUR CODE HERE ***"
         util.raiseNotDefined()
 
@@ -302,6 +311,25 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
+        ########################
+        current_Location= state[0]
+        current_Corners = sorted(state [1])
+        if current_Location in self.corners:
+            if current_Location in current_Corners:
+                '''print("already exists")'''
+            else:
+                current_Corners.append(current_Location)
+
+        length = len(current_Corners)
+        if (length == 4):
+            return True
+        else:
+            return False
+
+
+
+        ########################
+
         util.raiseNotDefined()
 
     def getSuccessors(self, state):
@@ -326,6 +354,23 @@ class CornersProblem(search.SearchProblem):
 
             "*** YOUR CODE HERE ***"
 
+            ####################################
+            x, y = state[0]
+            corners = sorted(state[1])
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            if not self.walls[nextx][nexty]:
+                currLoc = (nextx, nexty)
+                cost = 1
+                successorsCorners = list(corners)
+                if currLoc in self.corners:
+                    if not currLoc in successorsCorners:
+                        successorsCorners.append(currLoc)
+                successor = ((currLoc, sorted(successorsCorners)), action, cost)
+                successors.append(successor)
+            ####################################
+
+        ############################################
         self._expanded += 1 # DO NOT CHANGE
         return successors
 
