@@ -288,12 +288,14 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
-
+        ######### --- #################
     def getStartState(self):
         """
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
+        "*** YOUR CODE HERE ***"
+        #############################################
         currentCorners = []
         currentLocation = self.startingPosition
 #       print"Current Location =", currentLocation
@@ -301,9 +303,7 @@ class CornersProblem(search.SearchProblem):
             currentCorners.append(currentLocation)
         currentCorners = sorted(currentCorners)
         return (self.startingPosition,currentCorners)
-
-
-        "*** YOUR CODE HERE ***"
+        ##############################################
         util.raiseNotDefined()
 
     def isGoalState(self, state):
@@ -325,9 +325,6 @@ class CornersProblem(search.SearchProblem):
             return True
         else:
             return False
-
-
-
         ########################
 
         util.raiseNotDefined()
