@@ -40,6 +40,7 @@ from game import Actions
 import util
 import time
 import search
+import sys
 
 class GoWestAgent(Agent):
     "An agent that goes West until it can't."
@@ -357,13 +358,16 @@ class CornersProblem(search.SearchProblem):
             dx, dy = Actions.directionToVector(action)
             nextx, nexty = int(x + dx), int(y + dy)
             if not self.walls[nextx][nexty]:
-                currLoc = (nextx, nexty)
+                currentLocation = (nextx, nexty)
                 cost = 1
-                successorsCorners = list(corners)
-                if currLoc in self.corners:
-                    if not currLoc in successorsCorners:
-                        successorsCorners.append(currLoc)
-                successor = ((currLoc, sorted(successorsCorners)), action, cost)
+                succ_Corners = list(corners)
+                if currentLocation in self.corners:
+                    if currentLocation in succ_Corners:
+                        '''print "already present"'''
+                    else:
+                        succ_Corners.append(currentLocation)
+                succ_Corners= sorted(succ_Corners)
+                successor = ((currentLocation, succ_Corners), action, cost)
                 successors.append(successor)
             ####################################
 
@@ -402,6 +406,7 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
+
     return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
