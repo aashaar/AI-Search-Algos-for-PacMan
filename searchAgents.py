@@ -197,11 +197,14 @@ class PositionSearchProblem(search.SearchProblem):
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             x,y = state
             dx, dy = Actions.directionToVector(action)
-            nextx, nexty = int(x + dx), int(y + dy)
-            if not self.walls[nextx][nexty]:
-                nextState = (nextx, nexty)
+            x_next = int(x + dx)
+            y_next = int(y + dy)
+            if self.walls[x_next][y_next]:
+                '''print "here1"'''
+            else:
+                nextState = (x_next, y_next)
                 cost = self.costFn(nextState)
-                successors.append( ( nextState, action, cost) )
+                successors.append((nextState, action, cost))
 
         # Bookkeeping for display purposes
         self._expanded += 1 # DO NOT CHANGE
@@ -411,7 +414,9 @@ def cornersHeuristic(state, problem):
     corners_visited = state[1] # corners visited from current state
     max_distance = 0 # initial
     for i in range(0, len(corners)): #for loop to iterate through all the corners in problem
-        if corners[i] not in corners_visited: #if corner[i] is not present in the list then calculate distance from current state
+        if corners[i] in corners_visited: #if corner[i] is not present in the list then calculate distance from current state
+            '''print "already exists"'''
+        else:
             distance = manhattanDistance(current_state,corners[i])
             if distance > max_distance:
                 max_distance = distance
